@@ -11,22 +11,14 @@ form, p, span {
   
 input { font:12px arial; }
   
-a {
-    color:#0000FF;
-    text-decoration:none; }
-  
-    a:hover { text-decoration:underline; }
 
-#everything, #loginform {
+#everything {
     margin:0 auto;
     padding-bottom:25px;
     background: #E0E0FF;
     width:504px;
     border:10px solid #ACD8F0; }
-  
-#loginform { padding-top:18px; }
-  
-#loginform p { margin: 5px; }
+
   
 #chatlog {
     text-align:left;
@@ -41,18 +33,14 @@ a {
     /* Jake's help below */
     word-wrap:break-word;}
   
-#texttosend {
-    width:395px;
-    border:10px solid #ACD8F0; }
-  
-#submittext { width: 60px; }
   
 .error { color: #ff0000; }
   
+
 #menu { padding:12.5px 25px 12.5px 25px; }
   
+
 .title { text-align: center;
             font-size: 40px; }
 
   
-.msgln { margin:0 0 2px 0; }
