@@ -17,10 +17,10 @@ input { font:12px arial; }
     padding-bottom:25px;
     background: #E0E0FF;
     width:504px;
-    border:10px solid #ACD8F0; }
+    border:10px solid #ACD8F0;}
 
   
-#chatlog {
+#conversation {
     text-align:left;
     margin:0 auto;
     margin-bottom:25px;
@@ -33,7 +33,18 @@ input { font:12px arial; }
     /* Jake's help below */
     word-wrap:break-word;}
   
-  
+ #users {
+    text-align: left;
+    margin:0 auto;
+    margin-bottom: 25px;
+    margin-right: 25px;
+    margin-left: 25px;
+    padding: 10px;
+    background: #fff;
+    border:10px solid #ACD8F0;
+    overflow: auto;
+ } 
+
 .error { color: #ff0000; }
   
 

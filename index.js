@@ -40,7 +40,7 @@ io.sockets.on('connection', function (socket) {
         // echo to client they've connected
         socket.emit('updatechat', 'SERVER', 'you have connected');
         // echo globally (all clients) that a person has connected
-        socket.broadcast.emit('updatechat', 'SERVER', username + ' has connected');
+        socket.broadcast.emit('updatechat', 'SERVER', username + ' has entered the chat room!');
         // update the list of users in chat, client-side
         io.sockets.emit('updateusers', usernames);
     });
@@ -52,7 +52,7 @@ io.sockets.on('connection', function (socket) {
         // update list of users in chat, client-side
         io.sockets.emit('updateusers', usernames);
         // echo globally that this client has left
-        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has left the chat room!');
     });
 });
 
