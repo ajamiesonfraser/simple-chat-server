@@ -9,10 +9,11 @@ var io = require('socket.io').listen(server);
 
 /* Listen to port */
 console.log("listening on port " + port);
+server.listen(port);
 
 /* looks for request and response from the html (added _dirname because of multiple users) */
 app.get('/', function (req, res){
-  res.sendfile(__dirname + 'index.html');
+  res.sendfile(__dirname + '/index.html');
 });
 
 /* looks for the style sheet */
@@ -57,18 +58,3 @@ io.sockets.on('connection', function (socket) {
 
 
 
-io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-});
-
-
-
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-	});
-});
