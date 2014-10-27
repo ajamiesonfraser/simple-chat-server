@@ -39,16 +39,25 @@ io.sockets.on('connection', function (socket) {
         console.log('app name is', reply);
     });
     //last chat is taken from below and logged to console. it emits message to client
-    client.get('last chat', function(err, reply){
-        console.log('last chat', reply);
-        socket.emit('history', reply);
+    client.hkeys('history', function(err, replies){
+        console.log('history', replies);
+        replies.forEach(function(reply, i){
+            console.log(" " + i + " " + reply, reply[i]);
+            client.hget('history', reply, function(err, data){
+                console.log('data', data);
+                socket.emit('history', data);
+            });        
+        });
     });
     // when the client emits 'sendchat', this listens and executes
     socket.on('sendchat', function (data) {
         // we tell the client to execute 'updatechat' with 2 parameters
         io.sockets.emit('updatechat', socket.username, data);
         //chat data is set in redis database as last chat
-        client.set('last chat', data);
+        client.incr('msg_id', function(err, msg_id){
+            console.log('msg_id', msg_id);
+            client.hset('history', msg_id, data);
+        });
     });
  
     // when the client emits 'adduser', this listens and executes
