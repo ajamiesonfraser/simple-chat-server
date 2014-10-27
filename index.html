@@ -54,16 +54,19 @@
       var URL = window.location.protocol + "//" + window.location.host;
         console.log("Connecting to " + URL);
       var socket = io.connect(URL);
- 
+      
+      var username="";
         // on connection to server, ask for user's name with an anonymous callback
       socket.on('connect', function(){
                 // call the server-side function 'adduser' and send one parameter (value of prompt)
-        socket.emit('adduser', prompt("What's your name?"));
+        username = prompt("Whats your name?")
+        socket.emit('adduser', username);
+
         });
  
         // listener, whenever the server emits 'updatechat', this updates the chat body
-      socket.on('updatechat', function (username, data) {
-        $('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+      socket.on('updatechat', function (data) {
+        $('#conversation').append(data + '<br>');
       });
  
         // listener, whenever the server emits 'updateusers', this updates the username list
@@ -82,7 +85,7 @@
       $(function(){
         // This submits chat message when clicking Send button
         $('#datasend').click( function() {
-          var message = $('#data').val();
+          var message = '<b>'+username + ':</b> ' +$('#data').val();
           $('#data').val('');
           // Gets server to execute sendchat
           socket.emit('sendchat', message);

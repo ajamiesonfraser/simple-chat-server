@@ -42,7 +42,7 @@ io.sockets.on('connection', function (socket) {
     client.hkeys('history', function(err, replies){
         console.log('history', replies);
         replies.forEach(function(reply, i){
-            console.log(" " + i + " " + reply, reply[i]);
+            console.log(" " + i + " " + reply, replies[i]);
             client.hget('history', reply, function(err, data){
                 console.log('data', data);
                 socket.emit('history', data);
@@ -52,7 +52,7 @@ io.sockets.on('connection', function (socket) {
     // when the client emits 'sendchat', this listens and executes
     socket.on('sendchat', function (data) {
         // we tell the client to execute 'updatechat' with 2 parameters
-        io.sockets.emit('updatechat', socket.username, data);
+        io.sockets.emit('updatechat', data);
         //chat data is set in redis database as last chat
         client.incr('msg_id', function(err, msg_id){
             console.log('msg_id', msg_id);
@@ -67,9 +67,9 @@ io.sockets.on('connection', function (socket) {
         // add the client's username to the global list
         usernames[username] = username;
         // echo to client they've connected
-        socket.emit('updatechat', 'SERVER', 'You have entered the chat room!');
+        socket.emit('updatechat','<b>SERVER </b>'+ username + ' has entered the chat room!');
         // echo globally (all clients) that a person has connected
-        socket.broadcast.emit('updatechat', 'SERVER', username + ' has entered the chat room!');
+        socket.broadcast.emit('updatechat', '<b>SERVER </b>'+ username + ' has entered the chat room!');
         // update the list of users in chat, client-side
         io.sockets.emit('updateusers', usernames);
     });
@@ -81,7 +81,7 @@ io.sockets.on('connection', function (socket) {
         // update list of users in chat, client-side
         io.sockets.emit('updateusers', usernames);
         // echo globally that this client has left
-        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has left the chat room!');
+        socket.broadcast.emit('updatechat', '<b>SERVER </b>', socket.username + ' has left the chat room!');
     });
 });
 
