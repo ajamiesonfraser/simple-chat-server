@@ -73,6 +73,11 @@
           $('#users').append('<div>' + key + '</div>');
         });
       });
+
+      // appends databased message from server to the chat box on client side
+      socket.on('history', function (data) {
+        $('#conversation').append('<div>'+ data + '<div>');
+      });
  
       $(function(){
         // This submits chat message when clicking Send button

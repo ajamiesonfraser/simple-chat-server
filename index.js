@@ -38,13 +38,16 @@ io.sockets.on('connection', function (socket) {
     client.get('app name', function(err, reply) {
         console.log('app name is', reply);
     });
+    //last chat is taken from below and logged to console. it emits message to client
     client.get('last chat', function(err, reply){
         console.log('last chat', reply);
+        socket.emit('history', reply);
     });
     // when the client emits 'sendchat', this listens and executes
     socket.on('sendchat', function (data) {
         // we tell the client to execute 'updatechat' with 2 parameters
         io.sockets.emit('updatechat', socket.username, data);
+        //chat data is set in redis database as last chat
         client.set('last chat', data);
     });
  
