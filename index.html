@@ -34,7 +34,7 @@
           <div id="conversation"></div>
         
           <div id="userInput">
-            <input id="data" style="width:200px;" />
+            <input id="data" style="width:200px;" autofocus="autofocus"/>
             <input type="button" id="datasend" value="Send" />
           </div>
         </div>
@@ -54,7 +54,12 @@
       var URL = window.location.protocol + "//" + window.location.host;
         console.log("Connecting to " + URL);
       var socket = io.connect(URL);
-      
+      var keywords = [{word:"redis",annote:"im redis annote"},{word:"socket.io",annote:"im socket.io annote"},{word:"node",annote:"im node annote"}]
+      var displayQuery = function(annotation) {
+        alert(annotation);
+        console.log(annotation);  
+
+      }
       var username="";
         // on connection to server, ask for user's name with an anonymous callback
       socket.on('connect', function(){
@@ -85,9 +90,28 @@
       $(function(){
         // This submits chat message when clicking Send button
         $('#datasend').click( function() {
-          var message = '<b>'+username + ':</b> ' +$('#data').val();
+          var message = $('#data').val();
+
+          message = message.replace(/</,"!");
+          message = message.replace(/>/,"!");
+          message = '<b>'+username + ':</b> '+message;
+          keywords.forEach(function(keyword){
+            console.log("msg:",message);
+              
+            if(message.search(keyword.word)>-1){
+              console.log("keyword",JSON.stringify(keyword));
+
+              var regex = RegExp(keyword.word);
+              console.log("regex:",regex);
+              message = message.replace(regex,"<div style=\'background:red; display:inline;\'onclick='displayQuery("+"\""+keyword.annote+"\""+")'>"+keyword.word+"</div>")
+              console.log(message);
+            }
+          })
+          /* var annote = "whatever";
+          /* message = message.replace (/redis/g,"<div onclick='displayQuery("+"\""+annote+"\""+")'>"+'redis'+"</div>") */
+          document.getElementById('data').focus();
           $('#data').val('');
-          // Gets server to execute sendchat
+           // Gets server to execute sendchat
           socket.emit('sendchat', message);
         });
  
@@ -99,7 +123,6 @@
           }
         });
       });
- 
     </script>
 
   </body>
