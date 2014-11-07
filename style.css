@@ -1,7 +1,7 @@
 /* CSS Document */
 body {
     font:12px arial;
-    color: #222;
+    color: #000000;
     text-align:center;
     padding:35px; }
   
@@ -15,9 +15,9 @@ input { font:12px arial; }
 #everything {
     margin:0 auto;
     padding-bottom:25px;
-    background: #E0E0FF;
+    background: #39A1B0;
     width:504px;
-    border:10px solid #ACD8F0;}
+    border:10px solid #2c7c88;}
 
   
 #conversation {
@@ -25,10 +25,10 @@ input { font:12px arial; }
     margin:0 auto;
     margin-bottom:25px;
     padding:10px;
-    background:#fff;
+    background:#b4dde3;
     height:270px;
     width:430px;
-    border:10px solid #ACD8F0;
+    border:10px solid #2c7c88;
     overflow:auto; 
     /* Jake's help below */
     word-wrap:break-word;}
@@ -40,8 +40,8 @@ input { font:12px arial; }
     margin-right: 25px;
     margin-left: 25px;
     padding: 10px;
-    background: #fff;
-    border:10px solid #ACD8F0;
+    background: #b4dde3;
+    border:10px solid #2c7c88;
     overflow: auto;
  } 
 
